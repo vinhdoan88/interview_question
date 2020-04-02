@@ -1,0 +1,113 @@
+
+
+Skip to content
+Using Gmail with screen readers
+
+35 of 21,389
+Doan The Vinh - Quant dev position - Test
+Inbox
+x
+
+SARAH <sarah.tran@grasshopperasia.com>
+Attachments
+Tue, Mar 31, 5:36 PM (2 days ago)
+to me
+
+Hi Vinh,
+
+
+
+Thank you for your interest in our Quant developer role at Grasshopper. We’d like to send you the test.
+
+Please find attached data file and instructions in text, you may use any language preferred and we will require a description of your attempt on the exercise.
+
+We will need your submission latest by 2/4-6PM.
+
+
+
+Kind Regards
+
+Sarah Tran
+
+
+
+GRASSHOPPER
+
+Miss Ao Dai building, 21 Nguyen Trung Ngan street
+
+District 1, HCMC, Vietnam
+
+
+
+Mobile  (+84) 788454321
+
+sarah.tran@grasshopperasia.com
+
+
+
+2 Attachments
+
+Vinh Doan
+Tue, Mar 31, 8:57 PM (2 days ago)
+Hi Sarah, Well received with thanks. In case there are any questions regarding of the test, who should I reach out to? Best Regards, Vinh Doan
+
+SARAH
+Wed, Apr 1, 9:16 AM (1 day ago)
+Hi Vinh, You can email me. I will forward your question to the Quant team
+
+Vinh Doan <doantvinh@gmail.com>
+Wed, Apr 1, 1:40 PM (20 hours ago)
+to SARAH
+
+Hi Sarah,
+
+There are some questions that I want to clarify as following:
+
+- Regarding of the labels of next event, what is the "x" seconds mean, any event that happen first, because most of the time in database, the price remain unchanged? Or the question meaning that if any change in best bid-ask may happen in next few seconds? If possible, please help to clarify if my understanding is correct as following:
+def nextEventLogic(df):
+    if df['bid_change'] < 0:
+        return 1
+    elif df['ask_change'] >0:
+        return 2
+    else:
+        return 0
+
+
+- What is the roughly nature of these fields: 1s_side, 3s_side and 5s_side?
+
+Thank you very much.
+
+Best Regards,
+Vinh
+
+
+## Task
+Task is to fit a model for at least one of the labels of your choosing on the
+given data set. We are not looking only for the best fit but the design of the
+data investigation process. Please feel free to engineer additional features
+based on the given features as you see fit.
+
+Some brief explaination of the data contained in the columns are as follows.
+
+## Features
+timestamp  str  datetime string
+bid_price  float  price of current bid in the market
+bid_qty  float  quantity currently available at the bid price
+bid_price  float  price of current ask in the market
+ask_qty  float  quantity currently available at the ask price
+trade_price  float  last traded price
+sum_trade_1s  float  sum of quantity traded over the last second
+bid_advance_time  float  seconds since bid price last advanced
+ask_advance_time  float seconds since ask price last advanced
+last_trade_time  float  seconds since last trade
+## Labels
+# Labels indicate what is type of the first event that will happen in the
+# next x seconds, where:
+# 0 -- No price change
+# 1 -- Bid price decreased
+# 2 -- Ask price increased
+_1s_side  int
+_3s_side  int
+_5s_side  int
+Quant interview_task_readme.txt
+Displaying Quant interview_task_readme.txt.
