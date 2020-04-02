@@ -88,12 +88,13 @@ Then re-run the LR model again, this time the model is significantly improved:
     
 All models pass the threshold 80%.
 
-Since the input have similar nature and maybe high correlated(overlappping) to each other, we can try to PCA the input to reduce the dimensions to fine tune the model. We choose to keep 90% of information. The converted matrix B is now only 3 columns compare with original data is 10 columns. Re-run the OLS, we have a little better results:
+Since the input have similar nature and maybe high correlated(overlappping) to each other, we can try to PCA the input to reduce the dimensions to fine tune the model. We choose to keep 80% of information. The converted matrix B is now only 3 columns compare with original data is 10 columns. Re-run the OLS, we have a little better results:
 
     python pcaTest.py
-    _1s_side 89.1891891891892%
-    _3s_side 86.48648648648648%
-    _5s_side 85.13513513513513%
+    _1s_side 93.24324324324324%
+    _3s_side 87.83783783783784%
+    _5s_side 83.78378378378379%
+
 
 
 

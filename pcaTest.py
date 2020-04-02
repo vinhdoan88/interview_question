@@ -35,7 +35,7 @@ if __name__ == "__main__":
         X = df.drop(col, axis=1)
         pcaMat = X.copy()
 
-    pca = PCA(n_components=0.9)
+    pca = PCA(n_components=0.8)
     pca.fit(pcaMat)
     B = pca.transform(pcaMat)
     print(B.shape)
