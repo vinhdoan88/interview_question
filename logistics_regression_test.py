@@ -14,43 +14,62 @@ def constructColumnName(shape):
     return colList
 
 
+
 if __name__ == "__main__":
-    df = pd.read_csv("data_file.csv",parse_dates=['timestamp'])
-    df = df[["bid_price","bid_qty","ask_price","ask_qty","_5s_side","bid_qty_changed","ask_qty_changed","delta_bid","delta_ask","vol_imbalance","bid_ask_ratio"]]
-    # processedData = df.loc[abs(df['bid_qty_changed'])>]
-    print(len(df))
-    df = df.fillna(0)
+    df = pd.read_csv("data_file.csv", parse_dates=['timestamp'])
+    input_list = ["bid_price", "bid_qty", "ask_price", "ask_qty", "bid_qty_changed", "ask_qty_changed", "delta_bid",
+                  "delta_ask", "vol_imbalance", "bid_ask_ratio"]
+    label_list = ["_1s_side", "_3s_side", "_5s_side"]
+    df = df[input_list + label_list]
+    df = df.dropna()
+    mask = (df['bid_qty_changed'] != 0) & (df['ask_qty_changed'] != 0)
+    df = df[mask]
     lower = -4
     upper = 3
-    # mask = (df['bid_qty_changed']>=upper) | (df['bid_qty_changed']<=lower) | (df['ask_qty_changed']>=upper) | (df['ask_qty_changed']<=lower)
-
-    mask = (df['bid_qty_changed']!=0) & (df['ask_qty_changed']!=0)
     df = df[mask]
+    df = df.reset_index(drop=True)
     mask = (df['bid_qty_changed'] <= upper) & (df['bid_qty_changed'] >= lower) & (df['ask_qty_changed'] <= upper) & (
                 df['ask_qty_changed'] >= lower)
     df = df[mask]
-    pcaMat = df.copy()
-    pcaMat  = pcaMat.drop('_5s_side',axis=1)
-    print(pcaMat.head())
-    pca = PCA(n_components=0.9)
-    pca.fit(pcaMat)
-    B = pca.transform(pcaMat)
-    print(B.shape)
 
-    processedMatrix = pd.DataFrame(data=B, columns=constructColumnName(B.shape[1]))
-    processedMatrix = processedMatrix.join(df[["_5s_side"]])
+    for col in label_list:
+        X = df.drop(col, axis=1)
+
+    for col in label_list:
+        Y = df[col].astype('category')
+        X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size = 0.10, random_state = 99)
+        logistic_regression = LogisticRegression()
+        logistic_regression.fit(X_train, Y_train)
+        Y_pred = logistic_regression.predict(X_test)
+        accuracy = metrics.accuracy_score(Y_test, Y_pred)
+        accuracy_percentage = 100 * accuracy
+        print(col,accuracy_percentage)
 
 
-    # df = processedMatrix
 
-    df = df.dropna()
-    X = df.drop("_5s_side", axis=1)
-    Y = df['_5s_side'].astype('category')
-    X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size = 0.10, random_state = 99)
-    logistic_regression = LogisticRegression()
-    logistic_regression.fit(X_train, Y_train)
+    #
+    # pcaMat = df.copy()
+    # pcaMat  = pcaMat.drop('_1s_side',axis=1)
+    # print(pcaMat.head())
+    # pca = PCA(n_components=0.9)
+    # pca.fit(pcaMat)
+    # B = pca.transform(pcaMat)
+    # print(B.shape)
+    #
+    # processedMatrix = pd.DataFrame(data=B, columns=constructColumnName(B.shape[1]))
+    # processedMatrix = processedMatrix.join(df[["_1s_side"]])
+    #
+    #
+    # # df = processedMatrix
 
-    Y_pred = logistic_regression.predict(X_test)
-    accuracy = metrics.accuracy_score(Y_test, Y_pred)
-    accuracy_percentage = 100 * accuracy
-    print(accuracy_percentage)
+    # df = df.dropna()
+    # X = df.drop("_1s_side", axis=1)
+    # Y = df['_1s_side'].astype('category')
+    # X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size = 0.10, random_state = 99)
+    # logistic_regression = LogisticRegression()
+    # logistic_regression.fit(X_train, Y_train)
+    #
+    # Y_pred = logistic_regression.predict(X_test)
+    # accuracy = metrics.accuracy_score(Y_test, Y_pred)
+    # accuracy_percentage = 100 * accuracy
+    # print(accuracy_percentage)
