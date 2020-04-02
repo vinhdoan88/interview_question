@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from sklearn import metrics 
+from sklearn import metrics
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -31,11 +31,20 @@ if __name__ == "__main__":
     mask = (df['bid_qty_changed'] <= upper) & (df['bid_qty_changed'] >= lower) & (df['ask_qty_changed'] <= upper) & (
                 df['ask_qty_changed'] >= lower)
     df = df[mask]
-
     for col in label_list:
         X = df.drop(col, axis=1)
+        pcaMat = X.copy()
+
+    pca = PCA(n_components=0.9)
+    pca.fit(pcaMat)
+    B = pca.transform(pcaMat)
+    print(B.shape)
+    processedMatrix = pd.DataFrame(data=B, columns=constructColumnName(B.shape[1]))
+    print(processedMatrix.head())
 
     for col in label_list:
+        X = processedMatrix
+        df = df.fillna(0)
         Y = df[col].astype('category')
         X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size = 0.10, random_state = 99)
         logistic_regression = LogisticRegression()
@@ -44,6 +53,3 @@ if __name__ == "__main__":
         accuracy = metrics.accuracy_score(Y_test, Y_pred)
         accuracy_percentage = 100 * accuracy
         print(col,accuracy_percentage)
-
-
-

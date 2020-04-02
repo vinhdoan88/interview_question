@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5f396980-cb7f-4805-ae9c-7de0979b58db" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/logistics_regression_original.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logistics_regression_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/logistics_regression_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logistics_regression_optimized.py" beforeDir="false" afterPath="$PROJECT_DIR$/logistics_regression_optimized.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
